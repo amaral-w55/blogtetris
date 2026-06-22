@@ -6,7 +6,6 @@
     <title>Blog de João Amaral</title>
 
     <style>
-        /* Reset básico */
         * {
             margin: 0;
             padding: 0;
@@ -31,14 +30,13 @@
 
         header h1 {
             font-size: 3rem;
-            letter-spacing: 2px;
             margin-bottom: 10px;
         }
 
         main {
             max-width: 900px;
             margin: 40px auto;
-            background-color: #fff;
+            background: white;
             padding: 30px;
             border-radius: 20px;
             box-shadow: 0 8px 25px rgba(0,0,0,0.2);
@@ -59,38 +57,55 @@
         img {
             display: block;
             max-width: 100%;
-            border-radius: 15px;
             margin: 20px auto;
+            border-radius: 15px;
             box-shadow: 0 5px 15px rgba(0,0,0,0.2);
         }
 
-        .like-container {
-            text-align: center;
+        .reacoes {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
             margin-top: 30px;
+            flex-wrap: wrap;
         }
 
-        .like-btn {
-            font-size: 3rem;
+        .botao-reacao {
             border: none;
-            background: none;
+            background: #f5f5f5;
+            padding: 12px 20px;
+            border-radius: 30px;
             cursor: pointer;
-            transition: transform 0.2s ease;
-        }
-
-        .like-btn:hover {
-            transform: scale(1.15);
-        }
-
-        .likes {
-            margin-top: 10px;
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             font-weight: bold;
-            color: #e63946;
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .botao-reacao:hover {
+            background: #e8e8e8;
+            transform: scale(1.05);
+        }
+
+        .curtido {
+            background: #ffe5e5;
+            color: #e60023;
+        }
+
+        .nao-gostei {
+            background: #e8e8e8;
+            color: #444;
+        }
+
+        .contador {
+            font-size: 0.95rem;
         }
 
         footer {
             text-align: center;
-            color: #fff;
+            color: white;
             padding: 20px;
             font-size: 0.9rem;
         }
@@ -108,9 +123,8 @@
 
         <p>
             João Amaral é um verdadeiro entusiasta dos jogos eletrônicos.
-            Seu hobbie é jogar Tetris profissionalmente, participando de
-            competições e sempre buscando melhorar suas habilidades e
-            pontuações.
+            Seu hobby é jogar Tetris profissionalmente, participando de
+            competições e buscando constantemente melhorar suas habilidades.
         </p>
 
         <img
@@ -119,25 +133,32 @@
         >
 
         <p>
-            Além de competir, João compartilha suas estratégias e dicas
-            para jogadores que querem evoluir no Tetris. Sua dedicação
-            e paixão pelo jogo inspiram fãs e competidores de todas as
-            idades.
+            Além de competir, João compartilha estratégias e dicas para
+            ajudar outros jogadores a evoluírem no Tetris.
         </p>
 
-        <div class="like-container">
+        <div class="reacoes">
+
             <button
-                id="likeBtn"
-                class="like-btn"
+                id="btnCurtir"
+                class="botao-reacao"
                 aria-label="emoji de coração para curtir post"
-                title="emoji de coração para curtir post"
-                onclick="curtirPost()">
-                🤍
+                onclick="curtir()">
+
+                ❤️ Curtir
+                <span class="contador" id="totalCurtidas">125</span>
             </button>
 
-            <div class="likes">
-                Curtidas: <span id="contadorCurtidas">0</span>
-            </div>
+            <button
+                id="btnNaoGostei"
+                class="botao-reacao"
+                aria-label="emoji de coração partido para não gostar do post"
+                onclick="naoGostei()">
+
+                💔 Não gostei
+                <span class="contador" id="totalNaoGostei">8</span>
+            </button>
+
         </div>
     </main>
 
@@ -146,25 +167,80 @@
     </footer>
 
     <script>
-        let curtido = false;
-        let curtidas = 0;
+        // Valores iniciais
+        let curtidas = 125;
+        let naoGosteiTotal = 8;
 
-        function curtirPost() {
-            const botao = document.getElementById("likeBtn");
-            const contador = document.getElementById("contadorCurtidas");
+        // Estado do usuário
+        let reacaoUsuario = null; // "curtir", "naoGostei" ou null
 
-            if (!curtido) {
-                curtidas++;
-                curtido = true;
-                botao.textContent = "❤️";
-            } else {
-                curtidas--;
-                curtido = false;
-                botao.textContent = "🤍";
+        function atualizarContadores() {
+            document.getElementById("totalCurtidas").textContent = curtidas;
+            document.getElementById("totalNaoGostei").textContent = naoGosteiTotal;
+        }
+
+        function atualizarVisual() {
+            const btnCurtir = document.getElementById("btnCurtir");
+            const btnNaoGostei = document.getElementById("btnNaoGostei");
+
+            btnCurtir.classList.remove("curtido");
+            btnNaoGostei.classList.remove("nao-gostei");
+
+            if (reacaoUsuario === "curtir") {
+                btnCurtir.classList.add("curtido");
             }
 
-            contador.textContent = curtidas;
+            if (reacaoUsuario === "naoGostei") {
+                btnNaoGostei.classList.add("nao-gostei");
+            }
         }
+
+        function curtir() {
+
+            if (reacaoUsuario === "curtir") {
+                curtidas--;
+                reacaoUsuario = null;
+            }
+
+            else if (reacaoUsuario === "naoGostei") {
+                naoGosteiTotal--;
+                curtidas++;
+                reacaoUsuario = "curtir";
+            }
+
+            else {
+                curtidas++;
+                reacaoUsuario = "curtir";
+            }
+
+            atualizarContadores();
+            atualizarVisual();
+        }
+
+        function naoGostei() {
+
+            if (reacaoUsuario === "naoGostei") {
+                naoGosteiTotal--;
+                reacaoUsuario = null;
+            }
+
+            else if (reacaoUsuario === "curtir") {
+                curtidas--;
+                naoGosteiTotal++;
+                reacaoUsuario = "naoGostei";
+            }
+
+            else {
+                naoGosteiTotal++;
+                reacaoUsuario = "naoGostei";
+            }
+
+            atualizarContadores();
+            atualizarVisual();
+        }
+
+        atualizarContadores();
+        atualizarVisual();
     </script>
 
 </body>
