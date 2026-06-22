@@ -6,108 +6,160 @@
     <title>Blog de João Amaral</title>
 
     <style>
+        /* Reset */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
+        :root {
+            --cor-fundo: #f5f7fa;
+            --cor-card: #ffffff;
+            --cor-texto: #1f2937;
+            --cor-texto-secundario: #6b7280;
+            --cor-borda: #e5e7eb;
+            --cor-destaque: #2563eb;
+            --cor-curtida: #e11d48;
+            --cor-curtida-fundo: #fff1f2;
+            --sombra: 0 8px 30px rgba(0, 0, 0, 0.08);
+        }
+
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #1e3c72, #2a5298);
-            color: #333;
+            font-family: Inter, "Segoe UI", Arial, sans-serif;
+            background: var(--cor-fundo);
+            color: var(--cor-texto);
+            line-height: 1.7;
         }
 
         header {
-            background: #ffcc00;
-            color: #1a1a1a;
-            padding: 40px 20px;
+            background: var(--cor-card);
+            border-bottom: 1px solid var(--cor-borda);
             text-align: center;
-            border-bottom-left-radius: 50px;
-            border-bottom-right-radius: 50px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            padding: 50px 20px;
         }
 
         header h1 {
-            font-size: 3rem;
+            font-size: 2.5rem;
             margin-bottom: 10px;
         }
 
+        header p {
+            color: var(--cor-texto-secundario);
+            font-size: 1.1rem;
+        }
+
         main {
-            max-width: 900px;
+            max-width: 850px;
             margin: 40px auto;
-            background: white;
-            padding: 30px;
+            background: var(--cor-card);
             border-radius: 20px;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+            padding: 32px;
+            box-shadow: var(--sombra);
         }
 
         h2 {
-            color: #ff6600;
             margin-bottom: 20px;
-            text-align: center;
+            font-size: 1.8rem;
         }
 
         p {
-            font-size: 1.1rem;
-            line-height: 1.8;
             margin-bottom: 20px;
+            font-size: 1.05rem;
         }
 
         img {
+            width: 100%;
+            border-radius: 16px;
+            margin: 24px 0;
             display: block;
-            max-width: 100%;
-            margin: 20px auto;
-            border-radius: 15px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
         }
+
+        /* Reações */
 
         .reacoes {
             display: flex;
             justify-content: center;
-            gap: 25px;
+            gap: 12px;
             margin-top: 30px;
             flex-wrap: wrap;
         }
 
         .botao-reacao {
-            border: none;
-            background: #f5f5f5;
-            padding: 12px 20px;
-            border-radius: 30px;
-            cursor: pointer;
-            font-size: 1.1rem;
-            font-weight: bold;
-            transition: 0.3s;
             display: flex;
             align-items: center;
             gap: 8px;
+
+            background: #fff;
+            border: 1px solid var(--cor-borda);
+
+            padding: 12px 18px;
+            border-radius: 999px;
+
+            cursor: pointer;
+
+            font-size: 15px;
+            font-weight: 600;
+
+            transition:
+                background-color 0.2s ease,
+                border-color 0.2s ease,
+                transform 0.15s ease;
         }
 
         .botao-reacao:hover {
-            background: #e8e8e8;
-            transform: scale(1.05);
+            background: #f9fafb;
+        }
+
+        .botao-reacao:active {
+            transform: scale(0.98);
+        }
+
+        .botao-reacao:focus-visible {
+            outline: 3px solid var(--cor-destaque);
+            outline-offset: 3px;
         }
 
         .curtido {
-            background: #ffe5e5;
-            color: #e60023;
+            background: var(--cor-curtida-fundo);
+            border-color: #fda4af;
+            color: var(--cor-curtida);
         }
 
-        .nao-gostei {
-            background: #e8e8e8;
-            color: #444;
+        .descurtido {
+            background: #f3f4f6;
+            border-color: #d1d5db;
+            color: #374151;
         }
 
         .contador {
-            font-size: 0.95rem;
+            font-weight: 700;
         }
 
         footer {
             text-align: center;
-            color: white;
-            padding: 20px;
-            font-size: 0.9rem;
+            color: var(--cor-texto-secundario);
+            padding: 30px 20px;
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2rem;
+            }
+
+            main {
+                margin: 20px;
+                padding: 24px;
+            }
+
+            .reacoes {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .botao-reacao {
+                justify-content: center;
+            }
         }
     </style>
 </head>
@@ -119,12 +171,14 @@
     </header>
 
     <main>
+
         <h2>Sobre João</h2>
 
         <p>
             João Amaral é um verdadeiro entusiasta dos jogos eletrônicos.
             Seu hobby é jogar Tetris profissionalmente, participando de
-            competições e buscando constantemente melhorar suas habilidades.
+            competições e buscando constantemente aperfeiçoar suas
+            habilidades e pontuações.
         </p>
 
         <img
@@ -134,7 +188,8 @@
 
         <p>
             Além de competir, João compartilha estratégias e dicas para
-            ajudar outros jogadores a evoluírem no Tetris.
+            ajudar outros jogadores a evoluírem no Tetris. Sua dedicação
+            e paixão pelo jogo inspiram fãs e competidores de todas as idades.
         </p>
 
         <div class="reacoes">
@@ -142,24 +197,31 @@
             <button
                 id="btnCurtir"
                 class="botao-reacao"
-                aria-label="emoji de coração para curtir post"
+                aria-label="Curtir publicação"
+                aria-pressed="false"
                 onclick="curtir()">
 
-                ❤️ Curtir
-                <span class="contador" id="totalCurtidas">125</span>
+                <span>❤️</span>
+                <span>Curtir</span>
+                <span class="contador" id="totalCurtidas">0</span>
+
             </button>
 
             <button
                 id="btnNaoGostei"
                 class="botao-reacao"
-                aria-label="emoji de coração partido para não gostar do post"
+                aria-label="Não gostei da publicação"
+                aria-pressed="false"
                 onclick="naoGostei()">
 
-                💔 Não gostei
-                <span class="contador" id="totalNaoGostei">8</span>
+                <span>💔</span>
+                <span>Não gostei</span>
+                <span class="contador" id="totalNaoGostei">0</span>
+
             </button>
 
         </div>
+
     </main>
 
     <footer>
@@ -167,31 +229,32 @@
     </footer>
 
     <script>
-        // Valores iniciais
         let curtidas = 125;
         let naoGosteiTotal = 8;
 
-        // Estado do usuário
-        let reacaoUsuario = null; // "curtir", "naoGostei" ou null
+        let reacaoUsuario = null;
 
-        function atualizarContadores() {
+        function atualizar() {
             document.getElementById("totalCurtidas").textContent = curtidas;
             document.getElementById("totalNaoGostei").textContent = naoGosteiTotal;
-        }
 
-        function atualizarVisual() {
             const btnCurtir = document.getElementById("btnCurtir");
             const btnNaoGostei = document.getElementById("btnNaoGostei");
 
             btnCurtir.classList.remove("curtido");
-            btnNaoGostei.classList.remove("nao-gostei");
+            btnNaoGostei.classList.remove("descurtido");
+
+            btnCurtir.setAttribute("aria-pressed", "false");
+            btnNaoGostei.setAttribute("aria-pressed", "false");
 
             if (reacaoUsuario === "curtir") {
                 btnCurtir.classList.add("curtido");
+                btnCurtir.setAttribute("aria-pressed", "true");
             }
 
             if (reacaoUsuario === "naoGostei") {
-                btnNaoGostei.classList.add("nao-gostei");
+                btnNaoGostei.classList.add("descurtido");
+                btnNaoGostei.setAttribute("aria-pressed", "true");
             }
         }
 
@@ -200,21 +263,17 @@
             if (reacaoUsuario === "curtir") {
                 curtidas--;
                 reacaoUsuario = null;
-            }
+            } else {
 
-            else if (reacaoUsuario === "naoGostei") {
-                naoGosteiTotal--;
+                if (reacaoUsuario === "naoGostei") {
+                    naoGosteiTotal--;
+                }
+
                 curtidas++;
                 reacaoUsuario = "curtir";
             }
 
-            else {
-                curtidas++;
-                reacaoUsuario = "curtir";
-            }
-
-            atualizarContadores();
-            atualizarVisual();
+            atualizar();
         }
 
         function naoGostei() {
@@ -222,25 +281,20 @@
             if (reacaoUsuario === "naoGostei") {
                 naoGosteiTotal--;
                 reacaoUsuario = null;
-            }
+            } else {
 
-            else if (reacaoUsuario === "curtir") {
-                curtidas--;
+                if (reacaoUsuario === "curtir") {
+                    curtidas--;
+                }
+
                 naoGosteiTotal++;
                 reacaoUsuario = "naoGostei";
             }
 
-            else {
-                naoGosteiTotal++;
-                reacaoUsuario = "naoGostei";
-            }
-
-            atualizarContadores();
-            atualizarVisual();
+            atualizar();
         }
 
-        atualizarContadores();
-        atualizarVisual();
+        atualizar();
     </script>
 
 </body>
