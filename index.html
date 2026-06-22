@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blog de João Amaral</title>
+
     <style>
         /* Reset básico */
         * {
@@ -63,6 +64,30 @@
             box-shadow: 0 5px 15px rgba(0,0,0,0.2);
         }
 
+        .like-container {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .like-btn {
+            font-size: 3rem;
+            border: none;
+            background: none;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+
+        .like-btn:hover {
+            transform: scale(1.15);
+        }
+
+        .likes {
+            margin-top: 10px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #e63946;
+        }
+
         footer {
             text-align: center;
             color: #fff;
@@ -72,6 +97,7 @@
     </style>
 </head>
 <body>
+
     <header>
         <h1>João Amaral</h1>
         <p>O mestre do Tetris profissional</p>
@@ -79,15 +105,67 @@
 
     <main>
         <h2>Sobre João</h2>
-        <p>João Amaral é um verdadeiro entusiasta dos jogos eletrônicos. Seu hobbie é jogar Tetris profissionalmente, participando de competições e sempre buscando melhorar suas habilidades e pontuações.</p>
-        
-        <img src="https://m.media-amazon.com/images/I/61M3rDwh4qL.png" alt="João Amaral jogando Tetris">
-        
-        <p>Além de competir, João compartilha suas estratégias e dicas para jogadores que querem evoluir no Tetris. Sua dedicação e paixão pelo jogo inspiram fãs e competidores de todas as idades.</p>
+
+        <p>
+            João Amaral é um verdadeiro entusiasta dos jogos eletrônicos.
+            Seu hobbie é jogar Tetris profissionalmente, participando de
+            competições e sempre buscando melhorar suas habilidades e
+            pontuações.
+        </p>
+
+        <img
+            src="https://m.media-amazon.com/images/I/61M3rDwh4qL.png"
+            alt="imagem do jogo tetris"
+        >
+
+        <p>
+            Além de competir, João compartilha suas estratégias e dicas
+            para jogadores que querem evoluir no Tetris. Sua dedicação
+            e paixão pelo jogo inspiram fãs e competidores de todas as
+            idades.
+        </p>
+
+        <div class="like-container">
+            <button
+                id="likeBtn"
+                class="like-btn"
+                aria-label="emoji de coração para curtir post"
+                title="emoji de coração para curtir post"
+                onclick="curtirPost()">
+                🤍
+            </button>
+
+            <div class="likes">
+                Curtidas: <span id="contadorCurtidas">0</span>
+            </div>
+        </div>
     </main>
 
     <footer>
         &copy; 2026 Blog de João Amaral - Todos os direitos reservados
     </footer>
+
+    <script>
+        let curtido = false;
+        let curtidas = 0;
+
+        function curtirPost() {
+            const botao = document.getElementById("likeBtn");
+            const contador = document.getElementById("contadorCurtidas");
+
+            if (!curtido) {
+                curtidas++;
+                curtido = true;
+                botao.textContent = "❤️";
+            } else {
+                curtidas--;
+                curtido = false;
+                botao.textContent = "🤍";
+            }
+
+            contador.textContent = curtidas;
+        }
+    </script>
+
 </body>
 </html>
